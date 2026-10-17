@@ -159,11 +159,11 @@ sudo podman run --rm \
             rpm --import "/etc/pki/rpm-gpg/$base" 2>/dev/null || true
         done
         shopt -u nullglob
-        dnf5 install -y \
+        dnf5 --setopt=ip_resolve=4 --setopt=max_parallel_downloads=1 --setopt=minrate=100 --setopt=timeout=120 install -y \
             --setopt=reposdir=/mnt/azl/etc/yum.repos.d \
             --installroot=/mnt/azl --releasever=43 \
             --setopt=install_weak_deps=True \
-            $(cat /work/pkglist.txt) 2>&1 | tail -80
+            $(cat /work/pkglist.txt) 2>&1 | tee /work/dnf5-install.log | tail -80
         echo "=== RESULT ==="
         cat /mnt/azl/etc/os-release 2>&1 | head -5
         chroot /mnt/azl rpm -q glibc systemd mutter gnome-shell azurelinux-release gdm 2>&1 || true
