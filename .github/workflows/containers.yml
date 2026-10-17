@@ -6,8 +6,6 @@ name: Build GHCR containers
 # Dockerfile checks stay local before push (not a CI job).
 
 on:
-  schedule:
-    - cron: "15 3 * * 1"
   workflow_dispatch:
     inputs:
       force:

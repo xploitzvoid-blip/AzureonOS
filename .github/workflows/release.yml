@@ -52,8 +52,6 @@ name: Release
 #   GitHub 2GiB per-asset cap.
 
 on:
-  schedule:
-    - cron: "30 05 * * *"
   workflow_dispatch:
     inputs:
       live_iso:
